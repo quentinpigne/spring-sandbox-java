@@ -1,6 +1,6 @@
 FROM maven:3.6.3-openjdk-8
 
-VOLUME $USER_HOME_DIR/.m2
+VOLUME /root/.m2
 VOLUME /src
 
 WORKDIR /src
