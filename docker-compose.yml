@@ -15,7 +15,7 @@ services:
       - postgres-data:/var/lib/postgresql/data
 
   spring-sandbox-java:
-    image: quentinpigne/spring-sandbox-java:dev
+    image: spring-sandbox-java:dev
     container_name: spring-sandbox-java
     depends_on:
       - postgres
