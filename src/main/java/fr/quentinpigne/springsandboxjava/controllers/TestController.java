@@ -1,5 +1,7 @@
 package fr.quentinpigne.springsandboxjava.controllers;
 
+import fr.quentinpigne.springsandboxjava.services.TestService;
+import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,10 @@ import java.util.List;
 @Validated
 @RestController
 @RequestMapping("test")
+@RequiredArgsConstructor
 public class TestController {
+
+    private final TestService testService;
 
     Logger logger = LoggerFactory.getLogger(TestController.class);
 
@@ -26,11 +31,10 @@ public class TestController {
         return test;
     }
 
-    @GetMapping("cache/{id}")
-    public ResponseEntity<String> testCache() throws InterruptedException {
+    @GetMapping("cache")
+    public Integer testCache() throws InterruptedException {
         logger.trace("Test cache");
-        // Thread.sleep(1000);
-        return ResponseEntity.ok().body("42");
+        return testService.longRunningTreatment();
     }
 
     @GetMapping("network/{id}")
