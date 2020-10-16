@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class TestService {
 
-    @Cacheable("longRunningTreatment")
+    @Cacheable(value = "longRunningTreatment", keyGenerator = "customKeyGenerator")
     public Integer longRunningTreatment() throws InterruptedException {
         Thread.sleep(1000);
         return 42;
