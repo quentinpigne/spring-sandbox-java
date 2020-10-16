@@ -1,4 +1,4 @@
-package fr.quentinpigne.springsandboxjava.configuration;
+package fr.quentinpigne.springsandboxjava.utils;
 
 import org.ehcache.event.CacheEvent;
 import org.ehcache.event.CacheEventListener;
