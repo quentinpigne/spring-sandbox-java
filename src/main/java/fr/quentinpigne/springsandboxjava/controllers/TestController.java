@@ -33,7 +33,6 @@ public class TestController {
 
     @GetMapping("cache")
     public Integer testCache() throws InterruptedException {
-        logger.trace("Test cache");
         return testService.longRunningTreatment();
     }
 
