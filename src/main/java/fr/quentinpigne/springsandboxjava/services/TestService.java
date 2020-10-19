@@ -1,16 +1,18 @@
 package fr.quentinpigne.springsandboxjava.services;
 
+import fr.quentinpigne.springsandboxjava.utils.CacheableList;
 import lombok.RequiredArgsConstructor;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class TestService {
 
-    @Cacheable(value = "longRunningTreatment", keyGenerator = "customKeyGenerator")
-    public Integer longRunningTreatment() throws InterruptedException {
-        Thread.sleep(1000);
-        return 42;
+    @CacheableList(value = "longRunningTreatment", itemType = Integer.class)
+    public List<Integer> longRunningTreatment(List<Integer> param) throws InterruptedException {
+        Thread.sleep(1000 * param.size());
+        return param;
     }
 }

@@ -27,13 +27,9 @@ public class TestController {
     Logger logger = LoggerFactory.getLogger(TestController.class);
 
     @GetMapping(value = "", params = { "test" })
-    public List<Long> test(@NotEmpty(message = "Test parameter cannot be empty.") @RequestParam("test") List<Long> test) {
-        return test;
-    }
-
-    @GetMapping("cache")
-    public Integer testCache() throws InterruptedException {
-        return testService.longRunningTreatment();
+    public List<Integer> test(@NotEmpty(message = "Test parameter cannot be empty.") @RequestParam("test") List<Integer> test)
+        throws InterruptedException {
+        return testService.longRunningTreatment(test);
     }
 
     @GetMapping("network/{id}")
