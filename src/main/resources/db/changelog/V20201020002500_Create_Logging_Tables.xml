@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="V20201013103200_Create_Logging_Tables" author="Quentin Pigné">
+        <createTable tableName="logging_event">
+            <column name="timestmp" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="formatted_message" type="text">
+                <constraints nullable="false"/>
+            </column>
+            <column name="logger_name" type="varchar(254)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="level_string" type="varchar(254)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="thread_name" type="varchar(254)" />
+            <column name="reference_flag" type="smallint" />
+            <column name="arg0" type="varchar(254)" />
+            <column name="arg1" type="varchar(254)" />
+            <column name="arg2" type="varchar(254)" />
+            <column name="arg3" type="varchar(254)" />
+            <column name="caller_filename" type="varchar(254)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="caller_class" type="varchar(254)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="caller_method" type="varchar(254)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="caller_line" type="char(4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="event_id" type="${uuid_type}" defaultValueComputed="${uuid_function}">
+                <constraints nullable="false" unique="true" primaryKey="true"/>
+            </column>
+        </createTable>
+
+        <createTable tableName="logging_event_property">
+            <column name="event_id" type="${uuid_type}">
+                <constraints nullable="false" references="logging_event(event_id)" foreignKeyName="fk_logging_event_property_logging_event"/>
+            </column>
+            <column name="mapped_key" type="varchar(254)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mapped_value" type="varchar(1024)" />
+        </createTable>
+        <addPrimaryKey tableName="logging_event_property" columnNames="event_id, mapped_key" />
+
+        <createTable tableName="logging_event_exception">
+            <column name="event_id" type="${uuid_type}">
+                <constraints nullable="false" references="logging_event(event_id)" foreignKeyName="fk_logging_event_exception_logging_event"/>
+            </column>
+            <column name="i" type="smallint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="trace_line" type="varchar(254)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+        <addPrimaryKey tableName="logging_event_exception" columnNames="event_id, i" />
+    </changeSet>
+</databaseChangeLog>
