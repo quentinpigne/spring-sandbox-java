@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+    <appender name="LOGSTASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+        <destination>logstash:4560</destination>
+    </appender>
+</included>

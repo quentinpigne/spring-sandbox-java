@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<included>
+    <appender name="RABBITMQ" class="org.springframework.amqp.rabbit.logback.AmqpAppender">
+        <encoder class="net.logstash.logback.encoder.LogstashEncoder" />
+
+        <!-- RabbitMQ connection -->
+        <host>rabbitmq</host>
+        <port>5672</port>
+        <username>guest</username>
+        <password>guest</password>
+
+        <applicationId>SpringSandboxJava</applicationId>
+        <routingKeyPattern>SpringSandboxJava</routingKeyPattern>
+        <declareExchange>false</declareExchange>
+        <exchangeType>fanout</exchangeType>
+        <exchangeName>springSandboxJavaLogs</exchangeName>
+
+        <generateId>true</generateId>
+        <charset>UTF-8</charset>
+        <durable>true</durable>
+        <deliveryMode>PERSISTENT</deliveryMode>
+    </appender>
+</included>
