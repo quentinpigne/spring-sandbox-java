@@ -5,7 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
 
-    <changeSet id="V20201011153000_Create_Table_Test_Liquibase" author="Quentin Pigné">
+    <changeSet id="V20201014103200_Create_Table_Test_Liquibase" author="Quentin Pigné">
         <createTable tableName="test_liquibase">
             <column name="id" type="${uuid_type}" defaultValueComputed="${uuid_function}">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
