@@ -4,6 +4,11 @@
     <springProfile name="!dev">
         <include
             resource="org/springframework/boot/logging/logback/base.xml" />
+        <include
+            resource="logging/appenders/appender-fluency.xml" />
+        <root level="INFO">
+            <appender-ref ref="FLUENCY" />
+        </root>
     </springProfile>
     <springProfile name="dev">
         <include

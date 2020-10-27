@@ -22,6 +22,9 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <springfox.version>3.0.0</springfox.version>
+        <logback-more-appenders.version>1.8.1</logback-more-appenders.version>
+        <fluent-logger.version>0.3.4</fluent-logger.version>
+        <fluency.version>2.4.1</fluency.version>
     </properties>
 
     <dependencies>
@@ -86,6 +89,27 @@
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>${springfox.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sndyuk</groupId>
+            <artifactId>logback-more-appenders</artifactId>
+            <version>${logback-more-appenders.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.fluentd</groupId>
+            <artifactId>fluent-logger</artifactId>
+            <version>${fluent-logger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.komamitsu</groupId>
+            <artifactId>fluency-core</artifactId>
+            <version>${fluency.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.komamitsu</groupId>
+            <artifactId>fluency-fluentd</artifactId>
+            <version>${fluency.version}</version>
         </dependency>
 
         <dependency>
