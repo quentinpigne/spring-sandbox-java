@@ -13,6 +13,4 @@ import java.lang.annotation.Target;
 public @interface CacheableList {
 
     String value() default "";
-
-    Class<?> itemType();
 }

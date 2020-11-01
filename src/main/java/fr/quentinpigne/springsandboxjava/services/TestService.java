@@ -10,7 +10,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TestService {
 
-    @CacheableList(value = "longRunningTreatment", itemType = Integer.class)
+    @CacheableList(value = "longRunningTreatment")
     public List<Integer> longRunningTreatment(List<Integer> param) throws InterruptedException {
         Thread.sleep(1000 * param.size());
         return param;
