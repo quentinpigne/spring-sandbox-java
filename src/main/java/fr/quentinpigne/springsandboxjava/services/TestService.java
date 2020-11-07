@@ -1,6 +1,6 @@
 package fr.quentinpigne.springsandboxjava.services;
 
-import fr.quentinpigne.springsandboxjava.utils.CacheableList;
+import fr.quentinpigne.springsandboxjava.utils.cache.cacheablelist.CacheableList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

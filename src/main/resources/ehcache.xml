@@ -9,7 +9,7 @@
         </expiry>
         <listeners>
             <listener>
-                <class>fr.quentinpigne.springsandboxjava.utils.CacheEventLogger</class>
+                <class>fr.quentinpigne.springsandboxjava.utils.cache.CacheEventLogger</class>
                 <event-firing-mode>ASYNCHRONOUS</event-firing-mode>
                 <event-ordering-mode>UNORDERED</event-ordering-mode>
                 <events-to-fire-on>CREATED</events-to-fire-on>

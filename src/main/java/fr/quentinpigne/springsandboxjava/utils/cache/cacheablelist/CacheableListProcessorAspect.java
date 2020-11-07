@@ -1,4 +1,4 @@
-package fr.quentinpigne.springsandboxjava.utils;
+package fr.quentinpigne.springsandboxjava.utils.cache.cacheablelist;
 
 import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
