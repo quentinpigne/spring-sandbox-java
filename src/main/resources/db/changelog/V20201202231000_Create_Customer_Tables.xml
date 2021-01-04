@@ -13,8 +13,21 @@
             <column name="code" type="integer">
                 <constraints nullable="false" unique="true"/>
             </column>
+        </createTable>
+        <createTable tableName="customer_identity">
+            <column name="customer_id" type="${uuid_type}">
+                <constraints nullable="false" references="customer(id)" foreignKeyName="fk_customer_id_customer"/>
+            </column>
             <column name="firstname" type="varchar(255)"/>
             <column name="lastname" type="varchar(255)"/>
+            <column name="phone" type="varchar(255)"/>
+            <column name="mobile" type="varchar(255)"/>
+        </createTable>
+        <createTable tableName="company_info">
+            <column name="customer_id" type="${uuid_type}">
+                <constraints nullable="false" references="customer(id)" foreignKeyName="fk_company_info_customer"/>
+            </column>
+            <column name="company_name" type="varchar(255)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>

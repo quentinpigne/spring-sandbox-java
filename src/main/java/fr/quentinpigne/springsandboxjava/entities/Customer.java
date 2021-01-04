@@ -2,10 +2,8 @@ package fr.quentinpigne.springsandboxjava.entities;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Builder
@@ -24,9 +22,9 @@ public class Customer {
     @Column(name = "code")
     private Integer code;
 
-    @Column(name = "firstname")
-    private String firstname;
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    List<CustomerIdentity> customerIdentityList;
 
-    @Column(name = "lastname")
-    private String lastname;
+    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    CompanyInfo companyInfo;
 }
