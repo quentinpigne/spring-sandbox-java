@@ -13,7 +13,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.3.4.RELEASE</version>
+        <version>2.4.1</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -24,7 +24,7 @@
         <jsonwebtoken.version>0.11.2</jsonwebtoken.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
         <springfox.version>3.0.0</springfox.version>
-        <logback-more-appenders.version>1.8.1</logback-more-appenders.version>
+        <logback-more-appenders.version>1.8.4</logback-more-appenders.version>
         <fluent-logger.version>0.3.4</fluent-logger.version>
         <fluency.version>2.4.1</fluency.version>
     </properties>
