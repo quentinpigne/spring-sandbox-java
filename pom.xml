@@ -115,7 +115,7 @@
         </dependency>
         <dependency>
             <groupId>org.ehcache</groupId>
-            <artifactId>ehcache-clustered</artifactId>
+            <artifactId>ehcache</artifactId>
         </dependency>
 
         <dependency>
