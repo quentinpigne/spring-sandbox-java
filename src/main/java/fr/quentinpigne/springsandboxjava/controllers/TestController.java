@@ -1,6 +1,7 @@
 package fr.quentinpigne.springsandboxjava.controllers;
 
 import fr.quentinpigne.springsandboxjava.services.TestService;
+import io.micrometer.core.instrument.Metrics;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ public class TestController {
     @GetMapping(value = "", params = { "test" })
     public List<Integer> test(@NotEmpty(message = "Test parameter cannot be empty.") @RequestParam("test") List<Integer> test)
         throws InterruptedException {
+        Metrics.counter("test", "label1", "labelValue").increment();
         return testService.longRunningTreatment(test);
     }
 
