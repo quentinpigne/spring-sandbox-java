@@ -5,10 +5,9 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import java.util.List;
-import java.util.UUID;
 
 @RepositoryRestResource
-public interface CustomerRepository extends CrudRepository<Customer, UUID> {
+public interface CustomerRepository extends CrudRepository<Customer, Long> {
 
-    List<Customer> findByCode(Long code);
+    List<Customer> findByCode(Integer code);
 }

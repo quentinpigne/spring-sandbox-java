@@ -3,7 +3,6 @@ package fr.quentinpigne.springsandboxjava.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.UUID;
 
 @Builder
 @Getter
@@ -16,7 +15,7 @@ public class CompanyInfo {
 
     @Id
     @Column(name = "customer_id", nullable = false)
-    private UUID customerId;
+    private Long customerId;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)

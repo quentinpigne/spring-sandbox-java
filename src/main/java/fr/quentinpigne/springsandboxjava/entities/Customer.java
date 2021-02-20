@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.UUID;
 
 @Builder
 @Getter
@@ -17,14 +16,16 @@ public class Customer {
 
     @Id
     @Column(name = "id")
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerSequence")
+    @SequenceGenerator(name = "customerSequence", sequenceName = "customer_sequence", allocationSize = 1)
+    private Long id;
 
     @Column(name = "code")
     private Integer code;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    List<CustomerIdentity> customerIdentityList;
+    private List<CustomerIdentity> customerIdentityList;
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
-    CompanyInfo companyInfo;
+    private CompanyInfo companyInfo;
 }
