@@ -14,11 +14,10 @@ import javax.persistence.*;
 public class CompanyInfo {
 
     @Id
-    @Column(name = "customer_id", nullable = false)
-    private Long customerId;
+    private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @MapsId
+    @OneToOne(fetch = FetchType.LAZY)
     private Customer customer;
 
     @Column(name = "company_name")

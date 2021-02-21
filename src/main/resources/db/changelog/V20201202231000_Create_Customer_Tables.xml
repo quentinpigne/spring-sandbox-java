@@ -9,7 +9,7 @@
         <createSequence sequenceName="customer_sequence"/>
         <createTable tableName="customer">
             <column name="id" type="bigint">
-                <constraints nullable="false" unique="true" primaryKey="true"/>
+                <constraints nullable="false" primaryKey="true"/>
             </column>
             <column name="code" type="integer">
                 <constraints nullable="false" unique="true"/>
@@ -17,7 +17,7 @@
         </createTable>
         <createTable tableName="customer_identity">
             <column name="customer_id" type="bigint">
-                <constraints nullable="false" references="customer(id)" foreignKeyName="fk_customer_id_customer"/>
+                <constraints nullable="false" primaryKey="true" references="customer(id)" foreignKeyName="fk_customer_id"/>
             </column>
             <column name="firstname" type="varchar(255)"/>
             <column name="lastname" type="varchar(255)"/>
@@ -26,7 +26,7 @@
         </createTable>
         <createTable tableName="company_info">
             <column name="customer_id" type="bigint">
-                <constraints nullable="false" references="customer(id)" foreignKeyName="fk_company_info_customer"/>
+                <constraints nullable="false" primaryKey="true" references="customer(id)" foreignKeyName="fk_customer_id"/>
             </column>
             <column name="company_name" type="varchar(255)"/>
         </createTable>

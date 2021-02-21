@@ -26,7 +26,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<CustomerIdentity> customerIdentityList;
 
-    @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private CompanyInfo companyInfo;
 
     public void setCompanyInfo(CompanyInfo companyInfo) {
@@ -34,8 +34,7 @@ public class Customer {
             if (this.companyInfo != null) {
                 this.companyInfo.setCustomer(null);
             }
-        }
-        else {
+        } else {
             companyInfo.setCustomer(this);
         }
         this.companyInfo = companyInfo;
