@@ -28,4 +28,16 @@ public class Customer {
 
     @OneToOne(mappedBy = "customer", cascade = CascadeType.ALL)
     private CompanyInfo companyInfo;
+
+    public void setCompanyInfo(CompanyInfo companyInfo) {
+        if (companyInfo == null) {
+            if (this.companyInfo != null) {
+                this.companyInfo.setCustomer(null);
+            }
+        }
+        else {
+            companyInfo.setCustomer(this);
+        }
+        this.companyInfo = companyInfo;
+    }
 }
