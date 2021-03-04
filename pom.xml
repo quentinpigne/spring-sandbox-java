@@ -20,6 +20,7 @@
     <properties>
         <jsonwebtoken.version>0.11.2</jsonwebtoken.version>
         <mapstruct.version>1.4.1.Final</mapstruct.version>
+        <ehcache3.version>3.8.1</ehcache3.version>
         <springfox.version>3.0.0</springfox.version>
         <logback-more-appenders.version>1.8.4</logback-more-appenders.version>
         <fluent-logger.version>0.3.4</fluent-logger.version>
@@ -112,7 +113,8 @@
         </dependency>
         <dependency>
             <groupId>org.ehcache</groupId>
-            <artifactId>ehcache</artifactId>
+            <artifactId>ehcache-clustered</artifactId>
+            <version>${ehcache3.version}</version>
         </dependency>
 
         <dependency>
