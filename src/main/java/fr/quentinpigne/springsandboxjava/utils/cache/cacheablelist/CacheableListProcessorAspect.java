@@ -14,6 +14,7 @@ import javax.cache.CacheManager;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Aspect
 @Component
@@ -31,31 +32,35 @@ public class CacheableListProcessorAspect {
         Cache<Object, Object> cache = cacheManager.getCache(cacheableList.value());
 
         // List to spread for caching must be the first argument
+        Object[] args = Arrays.copyOf(joinPoint.getArgs(), joinPoint.getArgs().length);
         List<Object> listParameter = (List<Object>) joinPoint.getArgs()[0];
+        Object[] otherParameters = joinPoint.getArgs().length != 1 ? Arrays.copyOfRange(joinPoint.getArgs(), 1,
+            joinPoint.getArgs().length) : null;
 
         // Getting all items of the list already stored in the cache
         Map<Object, Object> cachedItemByCacheKey = cache.getAll(
-            listParameter.stream().map(item -> getCacheKey(method, item)).collect(Collectors.toSet()));
+            listParameter.stream().map(item -> getCacheKey(method, item, otherParameters)).collect(Collectors.toSet()));
 
         // Computing list of parameters not found in cache
         List<Object> remainingParameters = listParameter.stream().filter(
-            item -> !cachedItemByCacheKey.keySet().contains(getCacheKey(method, item))).distinct().collect(Collectors.toList());
+            item -> !cachedItemByCacheKey.keySet().contains(getCacheKey(method, item, otherParameters))).distinct().collect(Collectors.toList());
 
         // No need to call initial method if everything was found in the cache
         if (remainingParameters.isEmpty()) {
-            return listParameter.stream().map(item -> cachedItemByCacheKey.get(getCacheKey(method, item))).collect(Collectors.toList());
+            return listParameter.stream().map(item -> cachedItemByCacheKey.get(getCacheKey(method, item, otherParameters))).collect(Collectors.toList());
         }
 
         // Getting non cached items by calling initial method
-        List<Object> nonCachedItems = (List<Object>) joinPoint.proceed(new Object[] { remainingParameters });
+        args[0] = remainingParameters;
+        List<Object> nonCachedItems = (List<Object>) joinPoint.proceed(args);
 
         // Grouping non cached item by corresponding parameter and caching it
         Map<Object, Object> nonCachedItemByParameter = zipToMap(remainingParameters, nonCachedItems);
         cache.putAll(nonCachedItemByParameter.entrySet().stream().distinct().filter(e -> Objects.nonNull(e.getValue()))
-            .collect(Collectors.toMap(e -> getCacheKey(method, e.getKey()), Map.Entry::getValue, (prev, next) -> next, HashMap::new)));
+            .collect(Collectors.toMap(e -> getCacheKey(method, e.getKey(), otherParameters), Map.Entry::getValue, (prev, next) -> next, HashMap::new)));
 
-        return listParameter.stream().map(item -> cachedItemByCacheKey.containsKey(getCacheKey(method, item)) ? cachedItemByCacheKey
-            .get(getCacheKey(method, item)) : nonCachedItemByParameter.get(item)).collect(Collectors.toList());
+        return listParameter.stream().map(item -> cachedItemByCacheKey.containsKey(getCacheKey(method, item, otherParameters)) ? cachedItemByCacheKey
+            .get(getCacheKey(method, item, otherParameters)) : nonCachedItemByParameter.get(item)).collect(Collectors.toList());
     }
 
     private Method getCurrentMethod(JoinPoint joinPoint) {
@@ -63,8 +68,13 @@ public class CacheableListProcessorAspect {
         return signature.getMethod();
     }
 
-    private Object getCacheKey(Method method, Object item) {
-        return SimpleKeyGenerator.generateKey(method.getName(), item);
+    private Object getCacheKey(Method method, Object item, Object[] otherParameters) {
+        if (otherParameters != null) {
+            Object[] both = Stream.concat(Stream.of(method.getName(), item), Arrays.stream(otherParameters)).toArray(Object[]::new);
+            return SimpleKeyGenerator.generateKey(both);
+        } else {
+            return SimpleKeyGenerator.generateKey(method.getName(), item);
+        }
     }
 
     private Map<Object, Object> zipToMap(List<Object> keys, List<Object> values) {
