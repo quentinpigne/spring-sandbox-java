@@ -23,11 +23,26 @@ public class Customer {
     @Column(name = "code")
     private Integer code;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CustomerIdentity> customerIdentityList;
 
     @OneToOne(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private CompanyInfo companyInfo;
+
+    public void setCustomerIdentityList(List<CustomerIdentity> customerIdentityList) {
+        if (customerIdentityList == null) {
+            if (this.customerIdentityList != null) {
+                for (CustomerIdentity customerIdentity : this.customerIdentityList) {
+                    customerIdentity.setCustomer(null);
+                }
+            }
+        } else {
+            for (CustomerIdentity customerIdentity : customerIdentityList) {
+                customerIdentity.setCustomer(this);
+            }
+        }
+        this.customerIdentityList = customerIdentityList;
+    }
 
     public void setCompanyInfo(CompanyInfo companyInfo) {
         if (companyInfo == null) {
