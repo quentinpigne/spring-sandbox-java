@@ -15,9 +15,13 @@
                 <constraints nullable="false" unique="true"/>
             </column>
         </createTable>
+        <createSequence sequenceName="customer_identity_sequence"/>
         <createTable tableName="customer_identity">
+            <column name="customer_identity_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
             <column name="customer_id" type="bigint">
-                <constraints nullable="false" primaryKey="true" references="customer(id)" foreignKeyName="fk_customer_id"/>
+                <constraints nullable="false" references="customer(id)" foreignKeyName="fk_customer_id"/>
             </column>
             <column name="firstname" type="varchar(255)"/>
             <column name="lastname" type="varchar(255)"/>

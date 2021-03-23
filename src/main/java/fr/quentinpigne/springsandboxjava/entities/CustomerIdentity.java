@@ -14,11 +14,13 @@ import javax.persistence.*;
 public class CustomerIdentity {
 
     @Id
-    @Column(name = "customer_id", nullable = false)
-    private Long customerId;
+    @Column(name = "customer_identity_id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerIdentitySequence")
+    @SequenceGenerator(name = "customerIdentitySequence", sequenceName = "customer_identity_sequence", allocationSize = 1)
+    private Long customerIdentityId;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false, insertable = false, updatable = false)
+    @JoinColumn(name = "customer_id", referencedColumnName = "id", nullable = false)
     private Customer customer;
 
     @Column(name = "firstname")
